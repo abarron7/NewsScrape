@@ -178,6 +178,6 @@ app.post("/articles/:id", function(req, res) {
 });
 
 // Start the server
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log("App is running on port " + PORT);
 });
