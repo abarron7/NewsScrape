@@ -33,7 +33,7 @@ app.engine(
 app.set("view engine", "handlebars");
 
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || "mmongodb+srv://Scraper:Password1@scraper-4ooma.mongodb.net/test?retryWrites=true";
 
 mongoose.connect(MONGODB_URI);
 var results = [];
