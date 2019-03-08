@@ -10,7 +10,7 @@ var cheerio = require("cheerio");
 
 // Require all models
 var db = require("./models");
-
+// var db = require("./models/Note.js");
 // Initialize Express
 var app = express();
 
@@ -36,6 +36,7 @@ app.set("view engine", "handlebars");
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 mongoose.connect(MONGODB_URI);
+
 var results = [];
 
 // Routes
@@ -145,35 +146,35 @@ app.delete("/saved/:id", function(req, res) {
 });
 
 //Route for deleting a note
-app.delete("/articles/:id", function(req, res) {
-  db.Note.deleteOne({ _id: req.params.id })
-  .then(function(removed) {
-    res.json(removed);
-  }).catch(function(err,removed) {
-      // If an error occurred, send it to the client
-        res.json(err);
-    });
-});
+// app.delete("/articles/:id", function(req, res) {
+//   db.Note.deleteOne({ _id: req.params.id })
+//   .then(function(removed) {
+//     res.json(removed);
+//   }).catch(function(err,removed) {
+//       // If an error occurred, send it to the client
+//         res.json(err);
+//     });
+// });
 
 // Route for saving/updating an Article's associated Note
-app.post("/articles/:id", function(req, res) {
-  // Create a new note and pass the req.body to the entry
-  db.Note.create(req.body)
-    .then(function(dbNote) {
-      db.Article.findOneAndUpdate({ _id: req.params.id }, {$push: { note: dbNote._id }}, { new: true })
-      .then(function(dbArticle) {
-        console.log(dbArticle);
-        res.json(dbArticle);
-      })
-      .catch(function(err) {
-        // If an error occurred, send it to the client
-        res.json(err);
-      });
-    })
-    .catch(function(err) {
-      res.json(err);
-    })
-});
+// app.post("/articles/:id", function(req, res) {
+//   // Create a new note and pass the req.body to the entry
+//   db.Note.create(req.body)
+//     .then(function(dbNote) {
+//       db.Article.findOneAndUpdate({ _id: req.params.id }, {$push: { note: dbNote._id }}, { new: true })
+//       .then(function(dbArticle) {
+//         console.log(dbArticle);
+//         res.json(dbArticle);
+//       })
+//       .catch(function(err) {
+//         // If an error occurred, send it to the client
+//         res.json(err);
+//       });
+//     })
+//     .catch(function(err) {
+//       res.json(err);
+//     })
+// });
 
 // Start the server
 app.listen(process.env.PORT || 3000, function(){
